@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from .constans import TITLE_GROUP, POST_TEXT
 
@@ -24,7 +25,7 @@ class Post(models.Model):
         upload_to='posts/', null=True, blank=True)
     group = models.ForeignKey(
         Group, on_delete=models.CASCADE,
-        related_name="posts", blank=True, null=True
+        related_name='posts', blank=True, null=True
     )
 
     def __str__(self):
@@ -56,3 +57,8 @@ class Follow(models.Model):
                 name='unique_follow'
             )
         ]
+
+    def save(self, *args, **kwargs):
+        if self.user == self.following:
+            raise ValidationError('Нельзя подписаться на самого себя.')
+        super().save(*args, **kwargs)
