@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 # api_final_yatube
 
 ## Описание
@@ -133,4 +132,3 @@ POST-запрос /api/v1/follow/:
   "following": "string"
 }
 ```
->>>>>>> ae0f2f1ab02c200228f20167688a2ba53accc190
